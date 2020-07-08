@@ -22,9 +22,9 @@
     - [Kubernetes Manifest](#kubernetes-manifest)
       - [Custom Resource Definition](#custom-resource-definition)
         - [Virtual Service](#virtual-service)
+        - [Destination Rule](#destination-rule)
         - [Gateway](#gateway)
         - [Service Entry](#service-entry)
-        - [Destination Rule](#destination-rule)
   - [メモ](#メモ)
     - [技術用語](#技術用語)
     - [Namespaceに後付けで，Sidecarを導入する際](#namespaceに後付けでsidecarを導入する際)
@@ -82,11 +82,25 @@
 ### Kubernetes Manifest
 #### Custom Resource Definition
 ##### [Virtual Service](./manifest/virtual-service.yaml)
-  - ルーティングの設定使う
-##### Gateway
-##### Service Entry
+- `ルーティングの設定するのに使う`
 ##### Destination Rule
+- **VirtualServiceにPolicyを適応するのに使う**
+- サブセットでオーバーライド可能
+##### Gateway
+- **メッシュ内・外の通信を受信する**
+- Server
+  - 公開するポートとプロトコルを定義
+- selector
+  - ingree gateway の名前
+> ゲートウェイリソースは，**ingree gateway**と同じ名前空間に存在する必要がある
 
+##### Service Entry
+- **Istioが自動検知しないメッシュ外サービス等を設定するのに使う**
+- ServiceEntry.Location
+  - Serviceが，Istioメッシュ内・外にあるか定義
+  - `MESH_EXTERNAL`/`MESH_INTERNAL`
+- ServiceEntry.Resolution
+  - Envoyがサービスに紐づくIPアドレスをどのように解決するか定義
 
 ## メモ
 ### 技術用語
