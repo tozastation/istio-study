@@ -7,16 +7,24 @@
       - [kiali（可視化コンポーネント）](#kiali可視化コンポーネント)
       - [aws-istio-example](#aws-istio-example)
   - [Istio](#istio)
-  - [Deployment](#deployment)
-    - [Architecture](#architecture)
-    - [Deployment Models](#deployment-models)
-      - [Cluster models](#cluster-models)
-      - [Network models](#network-models)
-      - [Control plane models](#control-plane-models)
-      - [Identity and trust models](#identity-and-trust-models)
-      - [Tenancy models](#tenancy-models)
-    - [Performance and Scalability](#performance-and-scalability)
-    - [Pods and Services](#pods-and-services)
+    - [Deployment](#deployment)
+      - [Architecture](#architecture)
+      - [Deployment Models](#deployment-models)
+        - [Cluster models](#cluster-models)
+        - [Network models](#network-models)
+        - [Control plane models](#control-plane-models)
+        - [Identity and trust models](#identity-and-trust-models)
+        - [Tenancy models](#tenancy-models)
+  - [- Namespace，Clusterレベルで通信を隔離できる](#ullinamespaceclusterレベルで通信を隔離できるliul)
+      - [Performance and Scalability](#performance-and-scalability)
+  - [- 特になし](#ulli特になしliul)
+      - [Pods and Services](#pods-and-services)
+    - [Kubernetes Manifest](#kubernetes-manifest)
+      - [Custom Resource Definition](#custom-resource-definition)
+        - [Virtual Service](#virtual-service)
+        - [Gateway](#gateway)
+        - [Service Entry](#service-entry)
+        - [Destination Rule](#destination-rule)
   - [メモ](#メモ)
     - [技術用語](#技術用語)
     - [Namespaceに後付けで，Sidecarを導入する際](#namespaceに後付けでsidecarを導入する際)
@@ -43,8 +51,8 @@
 - `k apply -f ./istio-on-amazon-eks-master`
 
 ## Istio
-## Deployment
-### Architecture
+### Deployment
+#### Architecture
 - 2層に別れている
   - Data Plan（Envoy Proxy）
     - トラフィックの制御
@@ -52,28 +60,33 @@
   - Control Plan（istiod）
     - サービスディスカバリ（識別子 ⇄ 実体 の参照解決）
     - コンフィグ・証明書管理
-
 ---
-### Deployment Models
-#### Cluster models
+#### Deployment Models
+##### Cluster models
 - 単一クラスタでも，複数クラスタでも展開可能
 - クラスタが落ちても別のクラスタにトラフィックを流してくれる
-#### Network models
+##### Network models
 - 複数のネットワークを跨ぐ構成で，サブネット間の疎通性がない場合は，各ネットワークにistio-gatewayを配置してコントロールプレーンと繋げる
-#### Control plane models
+##### Control plane models
 - コントロールプレーンもHA構成可能
-#### Identity and trust models
+##### Identity and trust models
 - ここは触ってみないとあんまり理解できない
-#### Tenancy models
+##### Tenancy models
 - Namespace，Clusterレベルで通信を隔離できる
-
 ---
-### Performance and Scalability
+#### Performance and Scalability
 - 特になし
-
 ---
-### Pods and Services
+#### Pods and Services
 - 特になし
+### Kubernetes Manifest
+#### Custom Resource Definition
+##### [Virtual Service](./manifest/virtual-service.yaml)
+  - ルーティングの設定使う
+##### Gateway
+##### Service Entry
+##### Destination Rule
+
 
 ## メモ
 ### 技術用語
